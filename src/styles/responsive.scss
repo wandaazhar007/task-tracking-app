@@ -1,9 +1,9 @@
-// $xs: 375px;
-// $sm: 480px;
-// $md: 768px;
-// $lg: 1024px;
-// $xl: 1200px;
-// $xxl: 1400px;
+/*
+Author: Wanda Azhar
+Location: Twin Falls, ID. USA
+Contact: wandaazhar@gmail.com
+Description: A responsive task tracking application built with React, TypeScript, Sass, and Firebase. Manage your to-do, doing, and done tasks with a clean, board-style interface.
+*/
 
 @mixin smallPhone {
   @media screen and (max-width: (375px)) {
