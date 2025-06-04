@@ -1,54 +1,130 @@
-# React + TypeScript + Vite
+# Task Tracking App 📝
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<p align="center">
+  <em>A responsive and interactive task tracking application built with React, TypeScript, Sass, and Firebase to help you manage your workflow efficiently.</em>
+</p>
 
-Currently, two official plugins are available:
+**🚀 Live Demo:** (Coming Soon!)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Table of Contents
 
-## Expanding the ESLint configuration
+- [✨ Features](#-features)
+- [🛠️ Tech Stack](#️-tech-stack)
+- [📸 Screenshots](#-screenshots)
+- [⚙️ Getting Started](#️-getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation & Setup](#installation--setup)
+  - [Firebase Configuration](#firebase-configuration)
+- [🚀 Running the App](#-running-the-app)
+- [🤝 Contributing](#-contributing)
+- [📜 License](#-license)
+- [👋 Contact](#-contact)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## ✨ Features
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+This application allows users to manage their tasks through a clean, Kanban-style board interface.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+* **📝 Task Management:** Create, view, and update tasks.
+* **🚦 Status Columns:** Organize tasks into "To Do," "Doing," and "Done" columns.
+* **💅 Custom Styling:** Modern and clean UI styled with Sass, ensuring a unique look (no CSS frameworks like Tailwind used).
+* **📱 Mobile-Responsive:** Designed to work seamlessly across various devices and screen sizes.
+* **☁️ Real-time Data:** Firebase Firestore ensures tasks are synced in real-time.
+* **👤 User-Specific Tasks:** Firebase Authentication (anonymous) ensures tasks are private to each user session.
+* **🎨 Custom Icons:** Font Awesome icons for enhanced visual appeal.
+* **➕ Easy Task Addition:** Add tasks directly to specific columns or via a general "New" task button.
+* **✏️ Task Editing:** Click on a task to open a modal and edit its details.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🛠️ Tech Stack
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+This project is built using a modern and robust tech stack:
+
+* **Frontend:**
+    * [React](https://reactjs.org/) (v18+) - A JavaScript library for building user interfaces.
+    * [TypeScript](https://www.typescriptlang.org/) - For static typing and improved developer experience.
+* **Styling:**
+    * [Sass](https://sass-lang.com/) - CSS preprocessor for more maintainable and powerful stylesheets.
+* **Backend & Database:**
+    * [Firebase](https://firebase.google.com/)
+        * **Firestore:** NoSQL cloud database for real-time data storage and synchronization.
+        * **Firebase Authentication:** For user identification (currently anonymous sign-in).
+* **Icons:**
+    * [Font Awesome](https://fontawesome.com/) - For scalable vector icons.
+* **Build Tool (if you followed my Vite suggestion):**
+    * [Vite](https://vitejs.dev/) - Next-generation frontend tooling for fast development.
+* **Version Control:**
+    * [Git](https://git-scm.com/) & [GitHub](https://github.com)
+
+## 📸 Screenshots
+
+*Coming soon*
+
+## ⚙️ Getting Started
+
+Follow these instructions to set up and run the project on your local machine for development and testing purposes.
+
+### Prerequisites
+
+Make sure you have the following installed on your system:
+* [Node.js](https://nodejs.org/) (which includes npm) (v18 or later recommended)
+* [Git](https://git-scm.com/)
+
+### Installation & Setup
+
+1.  **Clone the repository:**
+    ```bash
+    git clone [https://github.com/wandaazhar007/task-tracking-app.git](https://github.com/wandaazhar007/task-tracking-app.git)
+    cd task-tracking-app
+    ```
+
+2.  **Install dependencies:**
+    Using npm (or yarn if you prefer):
+    ```bash
+    npm install
+    ```
+    This will install React, Firebase, Sass, and other necessary packages.
+
+3.  **Set up environment variables for Firebase:**
+    You'll need to connect the application to your own Firebase project.
+    * Go to the [Firebase Console](https://console.firebase.google.com/) and create a new project (or use an existing one).
+    * Enable **Firestore Database** (start in test mode or configure security rules).
+    * Enable **Authentication** and add "Anonymous" as a sign-in method.
+    * In your Firebase project settings, find your web app's Firebase configuration object.
+
+4.  **Configure Firebase in the App:**
+    * Open the `src/App.tsx` file.
+    * Locate the `firebaseConfig` object.
+    * Replace the placeholder values with your actual Firebase project configuration:
+        ```typescript
+        // src/App.tsx
+
+        // ...
+        const firebaseConfig = {
+            apiKey: "YOUR_FIREBASE_API_KEY",
+            authDomain: "YOUR_FIREBASE_AUTH_DOMAIN",
+            projectId: "YOUR_FIREBASE_PROJECT_ID",
+            storageBucket: "YOUR_FIREBASE_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_FIREBASE_MESSAGING_SENDER_ID",
+            appId: "YOUR_FIREBASE_APP_ID"
+        };
+        // ...
+        ```
+    * Ensure your Firestore security rules allow authenticated users (even anonymous ones) to read and write to their tasks. An example rule structure:
+        ```json
+        rules_version = '2';
+        service cloud.firestore {
+          match /databases/{database}/documents {
+            // Make sure 'default-app-id-task-tracker' matches the `appId` constant used in your src/App.tsx for Firestore paths
+            // or adjust this path to match your configuration.
+            match /artifacts/default-app-id-task-tracker/users/{userId}/tasks/{taskId} {
+              allow read, write: if request.auth != null && request.auth.uid == userId;
+            }
+          }
+        }
+        ```
+
+## 🚀 Running the App
+
+Once the setup is complete, you can run the development server:
+
+```bash
+npm run dev
