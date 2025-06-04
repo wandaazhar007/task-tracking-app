@@ -1,0 +1,28 @@
+@import './responsive.scss';
+@import './variable.scss';
+
+html {
+  font-size: 62.5%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*::selection {
+  background-color: $colorBackgroundDark;
+  color: $colorBackgroundLight;
+}
+
+a {
+  text-decoration: none;
+  columns: inherit;
+}
+
+.main {
+  font-family: "Inter", sans-serif;
+  background-color: $colorBackgroundLight;
+
+}
