@@ -5,5 +5,5 @@ Contact: wandaazhar@gmail.com
 Description: A responsive task tracking application built with React, TypeScript, Sass, and Firebase. Manage your to-do, doing, and done tasks with a clean, board-style interface.
 */
 
-@import '../../styles/variables.scss';
-@import '../../styles/responsive.scss';
+@use '../../styles/_variables';
+@use '../../styles/_responsive';

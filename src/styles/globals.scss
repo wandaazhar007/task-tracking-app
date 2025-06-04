@@ -7,8 +7,8 @@ Description: A responsive task tracking application built with React, TypeScript
 
 // @import './responsive.scss';
 // @import './variable.scss';
-@use './responsive.scss';
-@use './variable.scss';
+@use './responsive';
+@use './variable';
 
 
 html {
@@ -22,8 +22,8 @@ html {
 }
 
 *::selection {
-  background-color: $colorBackgroundDark;
-  color: $colorBackgroundLight;
+  background-color: variable.$colorBackgroundDark;
+  color: variable.$colorBackgroundLight;
 }
 
 a {
@@ -33,6 +33,6 @@ a {
 
 .main {
   font-family: "Inter", sans-serif;
-  background-color: $colorBackgroundLight;
+  background-color: variable.$colorBackgroundLight;
 
 }
