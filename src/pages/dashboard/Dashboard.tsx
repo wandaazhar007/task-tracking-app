@@ -1,9 +1,9 @@
 import './dashboard.scss';
-const Dashboard: React.FC = () => {
+
+
+const Dashboard = () => {
   return (
-    <>
-      <h1>This is a Main Page</h1>
-    </>
+    <h1>This is a main page</h1>
   );
 }
 

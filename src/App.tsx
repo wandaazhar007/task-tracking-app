@@ -1,6 +1,5 @@
-import Footer from './components/Footer';
-import Navbar from './components/Navbar';
-import Sidebar from './components/Sidebar';
+import Footer from './components//footer/Footer';
+import Navbar from './components/navbar/Navbar';
 import About from './pages/about/About';
 import Dashboard from './pages/dashboard/Dashboard';
 import './styles/globals.scss';
@@ -14,7 +13,6 @@ function App() {
       <div className="main">
         <Navbar />
         <div className="allContainer">
-          <Sidebar />
           <div className="contentContainer">
             <Outlet />
           </div>
