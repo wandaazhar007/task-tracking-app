@@ -107,20 +107,7 @@ Make sure you have the following installed on your system:
             appId: "YOUR_FIREBASE_APP_ID"
         };
         // ...
-        ```
-    * Ensure your Firestore security rules allow authenticated users (even anonymous ones) to read and write to their tasks. An example rule structure:
-        ```json
-        rules_version = '2';
-        service cloud.firestore {
-          match /databases/{database}/documents {
-            // Make sure 'default-app-id-task-tracker' matches the `appId` constant used in your src/App.tsx for Firestore paths
-            // or adjust this path to match your configuration.
-            match /artifacts/default-app-id-task-tracker/users/{userId}/tasks/{taskId} {
-              allow read, write: if request.auth != null && request.auth.uid == userId;
-            }
-          }
-        }
-        ```
+      
 
 ## 🚀 Running the App
 
