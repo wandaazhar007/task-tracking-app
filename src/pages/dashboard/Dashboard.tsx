@@ -1,3 +1,4 @@
+import './dashboard.scss';
 const Dashboard: React.FC = () => {
   return (
     <>

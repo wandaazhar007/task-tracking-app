@@ -1,6 +1,7 @@
 import Footer from './components/Footer';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
+import About from './pages/about/About';
 import Dashboard from './pages/dashboard/Dashboard';
 import './styles/globals.scss';
 
@@ -35,8 +36,8 @@ function App() {
       ]
     },
     {
-      path: "/login",
-      element: <Dashboard />
+      path: "/about",
+      element: <About />
     }
   ])
   return (
