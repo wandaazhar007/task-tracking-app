@@ -1,7 +1,34 @@
-// src/pages/dashboard/dashboard.scss
+// src/components/taskCard/taskCard.scss
 /*
 Author: Wanda Azhar
 Location: Twin Falls, ID. USA
 Contact: wandaazhar@gmail.com
-Description: A responsive task tracking application built with React, TypeScript, Sass, and Firebase. Manage your to-do, doing, and done tasks with a clean, board-style interface.
+Description: Styles for the TaskCard component.
 */
+@use '../../styles/variable' as v;
+
+.task-card {
+  background-color: white;
+  border-radius: 0.6rem;
+  padding: 1.2rem;
+  margin-bottom: 1rem;
+  box-shadow: v.$boxShadow;
+  cursor: grab;
+  transition: box-shadow 0.2s, transform 0.2s;
+  border: 1px solid #EAEAEA;
+
+  .task-title {
+    font-size: 1.4rem;
+    color: v.$colorBackgroundDark;
+    font-weight: 500;
+  }
+
+  &:hover {
+    box-shadow: rgba(100, 100, 111, 0.25) 0px 2px 8px 0px;
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    cursor: grabbing;
+  }
+}
