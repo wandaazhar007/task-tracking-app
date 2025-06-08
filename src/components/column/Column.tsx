@@ -3,7 +3,7 @@
 Author: Wanda Azhar
 Location: Twin Falls, ID, USA
 Contact: wandaazhar@gmail.com
-Description: Represents a single column (e.g., 'To Do', 'Doing', 'Done') in the task board.
+Description: Represents a single column that accepts dropped task cards.
 */
 
 import React from 'react';
@@ -11,34 +11,32 @@ import { useDrop } from 'react-dnd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import type { Task, TaskStatus } from '../../types/types';
-import TaskCard from '../taskCard/TaskCard'; // Using the actual TaskCard component
+import TaskCard from '../taskCard/TaskCard';
 import './column.scss';
 
+// The props interface is updated to accept the onDropTask function.
 interface ColumnProps {
   status: TaskStatus;
   tasks: Task[];
-  // We will implement this function later to handle the drag-and-drop logic
-  // onDropTask: (taskId: string, newStatus: TaskStatus) => void;
+  onDropTask: (taskId: string, newStatus: TaskStatus) => void;
 }
 
-const Column: React.FC<ColumnProps> = ({ status, tasks }) => {
+const Column: React.FC<ColumnProps> = ({ status, tasks, onDropTask }) => {
   const [{ isOver }, drop] = useDrop(() => ({
     accept: 'TASK_CARD',
-    // drop: (item: { id: string }) => onDropTask(item.id, status),
+    // The 'drop' function is now active. It calls onDropTask when a card is dropped.
+    drop: (item: { id: string }) => onDropTask(item.id, status),
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
     }),
-  }));
+  }), [status, onDropTask]); // Dependencies for the useDrop hook
 
-  // This is the key change: We create our own ref using React.useRef.
   const ref = React.useRef<HTMLDivElement>(null);
-  // Then, we connect the react-dnd 'drop' functionality to our ref.
   drop(ref);
 
   const statusClass = status.replace(/\s+/g, '-');
 
   return (
-    // We now pass our own, correctly-typed ref to the div.
     <div ref={ref} className={`column ${isOver ? 'is-over' : ''}`}>
       <div className="column-header">
         <h3 className={statusClass}>{status}</h3>
@@ -60,4 +58,3 @@ const Column: React.FC<ColumnProps> = ({ status, tasks }) => {
 };
 
 export default Column;
-
