@@ -9,7 +9,8 @@ Description: The main dashboard component that displays task columns and handles
 import { useState, useEffect } from 'react';
 import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
 import { db } from '../../utils/firebase';
-import { Task, TaskStatus } from '../../types/types';
+// By adding 'type', we tell TypeScript this is a type-only import, resolving the error.
+import type { Task, TaskStatus } from '../../types/types';
 
 import './dashboard.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
