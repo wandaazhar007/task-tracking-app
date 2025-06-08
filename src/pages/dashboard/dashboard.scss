@@ -1,6 +1,232 @@
+// src/pages/dashboard/dashboard.scss
 /*
 Author: Wanda Azhar
-Location: Twin Falls, ID. USA
+Location: Twin Falls, ID, USA
 Contact: wandaazhar@gmail.com
 Description: A responsive task tracking application built with React, TypeScript, Sass, and Firebase. Manage your to-do, doing, and done tasks with a clean, board-style interface.
 */
+
+@use '../../styles/variable' as v;
+@use '../../styles/responsive' as r;
+
+.dashboard {
+  padding: 2rem;
+  background-color: #FAFAFA; // A very light grey for the main background
+  min-height: 100vh;
+
+  &-header {
+    margin-bottom: 2rem;
+
+    .title-section {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+
+      .title-icon {
+        font-size: 2.4rem;
+        color: v.$colorBackgroundDark;
+        border: 2px solid v.$colorBackgroundDark;
+        border-radius: 0.5rem;
+        padding: 0.4rem;
+      }
+
+      h1 {
+        font-size: 2.8rem;
+        font-weight: 700;
+        color: v.$colorBackgroundDark;
+      }
+    }
+
+    p {
+      font-size: 1.4rem;
+      color: v.$textGrey;
+      line-height: 1.6;
+    }
+  }
+
+  .toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #E0E0E0;
+    padding-bottom: 1.5rem;
+
+    .view-options {
+      .view-btn {
+        background-color: transparent;
+        border: none;
+        padding: 0.8rem 1.2rem;
+        font-size: 1.4rem;
+        font-weight: 500;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        border-radius: 0.6rem;
+        color: v.$colorBackgroundDark;
+
+        &.active {
+          border-bottom: 2px solid v.$colorBackgroundDark;
+          font-weight: 600;
+        }
+
+        &:hover {
+          background-color: #f0f0f0;
+        }
+      }
+    }
+
+    .action-buttons {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      .icon-btn {
+        background-color: transparent;
+        border: 1px solid #E0E0E0;
+        border-radius: 0.6rem;
+        width: 3.2rem;
+        height: 3.2rem;
+        font-size: 1.4rem;
+        color: v.$textGrey;
+        cursor: pointer;
+        transition: background-color 0.2s;
+
+        &:hover {
+          background-color: #f0f0f0;
+          color: v.$colorBackgroundDark;
+        }
+      }
+
+      .new-task-btn {
+        background-color: #4A90E2; // A nice blue for the primary action
+        color: white;
+        border: none;
+        border-radius: 0.6rem;
+        padding: 0.8rem 1.4rem;
+        font-size: 1.4rem;
+        font-weight: 500;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        transition: background-color 0.2s;
+
+        &:hover {
+          background-color: #357ABD;
+        }
+      }
+    }
+  }
+
+  .columns-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+
+    @include r.tablet {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  // Placeholder styles for Column and TaskCard for demonstration
+  .column {
+    background-color: #F7F7F7;
+    border-radius: 0.8rem;
+    padding: 1.5rem;
+
+    .column-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #E0E0E0;
+      margin-bottom: 1.5rem;
+
+      h3 {
+        font-size: 1.4rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: v.$textGrey;
+
+        // Specific colors for statuses based on mockup
+        &.To-Do {
+          color: #D9534F;
+        }
+
+        &.Doing {
+          color: #F0AD4E;
+        }
+
+        &.Done {
+          color: #5CB85C;
+        }
+      }
+
+      span {
+        font-size: 1.2rem;
+        background-color: #E0E0E0;
+        color: v.$textGrey;
+        padding: 0.2rem 0.6rem;
+        border-radius: 1rem;
+      }
+
+      .add-task-btn-small {
+        margin-left: auto;
+        background: transparent;
+        border: none;
+        font-size: 1.6rem;
+        color: v.$textGrey;
+        cursor: pointer;
+
+        &:hover {
+          color: v.$colorBackgroundDark;
+        }
+      }
+    }
+
+    .task-card {
+      background-color: white;
+      border-radius: 0.6rem;
+      padding: 1.2rem;
+      margin-bottom: 1rem;
+      box-shadow: v.$boxShadow;
+      font-size: 1.4rem;
+      cursor: pointer;
+      transition: box-shadow 0.2s;
+
+      &:hover {
+        box-shadow: rgba(100, 100, 111, 0.25) 0px 2px 8px 0px;
+      }
+    }
+
+    .new-page-btn {
+      width: 100%;
+      background-color: transparent;
+      border: none;
+      text-align: left;
+      padding: 1rem;
+      border-radius: 0.6rem;
+      font-size: 1.4rem;
+      color: v.$textGrey;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+
+      &:hover {
+        background-color: #EAEAEA;
+      }
+    }
+  }
+
+  .error-message {
+    color: #D9534F;
+    font-size: 1.6rem;
+    text-align: center;
+    padding: 2rem;
+  }
+}
