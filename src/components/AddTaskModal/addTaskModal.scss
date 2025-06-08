@@ -1,0 +1,146 @@
+// src/components/AddTaskModal/addTaskModal.scss
+/*
+Author: Wanda Azhar
+Location: Twin Falls, ID, USA
+Contact: wandaazhar@gmail.com
+Description: Styles for the AddTaskModal component.
+*/
+
+@use '../../styles/variable' as v;
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 2.5rem;
+  border-radius: 0.8rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 50rem;
+  animation: fadeIn 0.3s ease-out;
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #E0E0E0;
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+
+    h2 {
+      font-size: 2rem;
+      font-weight: 600;
+      color: v.$colorBackgroundDark;
+    }
+
+    .close-btn {
+      background: transparent;
+      border: none;
+      font-size: 2rem;
+      cursor: pointer;
+      color: v.$textGrey;
+
+      &:hover {
+        color: v.$colorBackgroundDark;
+      }
+    }
+  }
+
+  .form-group {
+    margin-bottom: 2rem;
+
+    label {
+      display: block;
+      font-size: 1.4rem;
+      font-weight: 500;
+      margin-bottom: 0.8rem;
+      color: v.$textGrey;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 1rem;
+      font-size: 1.6rem;
+      border: 1px solid #D0D0D0;
+      border-radius: 0.6rem;
+      transition: border-color 0.2s;
+
+      &:focus {
+        outline: none;
+        border-color: #4A90E2;
+        box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+      }
+    }
+  }
+
+  .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2.5rem;
+
+    .cancel-btn,
+    .submit-btn {
+      padding: 1rem 2rem;
+      font-size: 1.4rem;
+      font-weight: 500;
+      border-radius: 0.6rem;
+      cursor: pointer;
+      border: none;
+      transition: background-color 0.2s;
+    }
+
+    .cancel-btn {
+      background-color: #f0f0f0;
+      color: v.$textGrey;
+
+      &:hover {
+        background-color: #E0E0E0;
+      }
+    }
+
+    .submit-btn {
+      background-color: #4A90E2;
+      color: white;
+
+      &:hover {
+        background-color: #357ABD;
+      }
+
+      &:disabled {
+        background-color: #a0a0a0;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  .error-message {
+    color: #D9534F;
+    font-size: 1.4rem;
+    margin-top: 1rem;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
