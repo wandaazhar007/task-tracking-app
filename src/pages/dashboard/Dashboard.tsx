@@ -16,7 +16,7 @@ import AddTaskModal from '../../components/addTaskModal/AddTaskModal';
 
 import './dashboard.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck, faPlus, faList, faTh, faSearch, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faList, faTh, faSearch, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
 
 const Dashboard = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
