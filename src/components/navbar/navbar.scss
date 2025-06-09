@@ -1,6 +1,74 @@
+// src/components/navbar/navbar.scss
 /*
 Author: Wanda Azhar
 Location: Twin Falls, ID. USA
 Contact: wandaazhar@gmail.com
-Description: A responsive task tracking application built with React, TypeScript, Sass, and Firebase. Manage your to-do, doing, and done tasks with a clean, board-style interface.
+Description: Styles for the Navbar component.
 */
+
+@use '../../styles/variable' as v;
+@use '../../styles/responsive' as r;
+
+.navbar {
+  background: v.$colorBackgroundNavbar;
+  height: 8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.6rem;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  &-container {
+    display: flex;
+    justify-content: space-between;
+    height: 8rem;
+    z-index: 1;
+    width: 100%;
+    padding: 0 2.4rem;
+    max-width: 130rem;
+  }
+
+  &-logo {
+    color: #fff;
+    justify-self: flex-start;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+
+    .fa-tasks {
+      margin-right: 1rem;
+    }
+  }
+
+  .nav-menu {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    text-align: center;
+  }
+
+  .nav-item {
+    height: 8rem;
+  }
+
+  .nav-links {
+    color: #fff;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    padding: 0 1.6rem;
+    height: 100%;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      border-bottom: 4px solid v.$colorTeal;
+      color: v.$colorTeal;
+    }
+  }
+}
