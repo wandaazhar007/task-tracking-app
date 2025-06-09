@@ -77,13 +77,13 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard">
-      <div className="dashboard-header">
+      {/* <div className="dashboard-header">
         <div className="title-section">
           <FontAwesomeIcon icon={faCheck} className="title-icon" />
           <h1>Wanda's Task List</h1>
         </div>
         <p>A project by Wanda Azhar. Use this tool to track your tasks efficiently.</p>
-      </div>
+      </div> */}
 
       <div className="toolbar">
         <div className="view-options">
