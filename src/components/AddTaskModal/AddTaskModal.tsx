@@ -3,32 +3,40 @@
 Author: Wanda Azhar
 Location: Twin Falls, ID, USA
 Contact: wandaazhar@gmail.com
-Description: A modal component for adding a new task.
+Description: A modal component for adding and editing tasks.
 */
 
-import React, { useState } from 'react';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import React, { useState, useEffect } from 'react';
+import { collection, addDoc, updateDoc, doc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../../utils/firebase';
-import type { TaskStatus } from '../../types/types';
+import type { Task, TaskStatus } from '../../types/types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import './addTaskModal.scss';
 
 interface AddTaskModalProps {
   onClose: () => void;
-  initialStatus?: TaskStatus;
+  taskToEdit?: Task | null;
 }
 
-const AddTaskModal: React.FC<AddTaskModalProps> = ({ onClose, initialStatus = 'To Do' }) => {
+const AddTaskModal: React.FC<AddTaskModalProps> = ({ onClose, taskToEdit }) => {
   const [title, setTitle] = useState('');
-  const [status, setStatus] = useState<TaskStatus>(initialStatus);
+  const [status, setStatus] = useState<TaskStatus>('To Do');
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const isEditMode = !!taskToEdit;
+
+  useEffect(() => {
+    // If a task is passed, populate the form for editing
+    if (isEditMode) {
+      setTitle(taskToEdit.title);
+      setStatus(taskToEdit.status);
+    }
+  }, [isEditMode, taskToEdit]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Basic validation
     if (!title.trim()) {
       setError('Task title cannot be empty.');
       return;
@@ -38,16 +46,25 @@ const AddTaskModal: React.FC<AddTaskModalProps> = ({ onClose, initialStatus = 'T
     setError('');
 
     try {
-      // Add a new document with a generated id to the "tasks" collection.
-      await addDoc(collection(db, 'tasks'), {
-        title: title.trim(),
-        status: status,
-        createdAt: serverTimestamp() // Use server timestamp for consistency
-      });
-      onClose(); // Close the modal on successful submission
+      if (isEditMode) {
+        // Update the existing document
+        const taskRef = doc(db, 'tasks', taskToEdit.id);
+        await updateDoc(taskRef, {
+          title: title.trim(),
+          status: status
+        });
+      } else {
+        // Add a new document
+        await addDoc(collection(db, 'tasks'), {
+          title: title.trim(),
+          status: status,
+          createdAt: serverTimestamp()
+        });
+      }
+      onClose();
     } catch (err) {
-      console.error("Error adding document: ", err);
-      setError('Failed to add task. Please try again.');
+      console.error("Error saving task: ", err);
+      setError('Failed to save task. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -57,7 +74,7 @@ const AddTaskModal: React.FC<AddTaskModalProps> = ({ onClose, initialStatus = 'T
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
-          <h2>Add New Task</h2>
+          <h2>{isEditMode ? 'Edit Task' : 'Add New Task'}</h2>
           <button onClick={onClose} className="close-btn" aria-label="Close modal">
             <FontAwesomeIcon icon={faTimes} />
           </button>
@@ -70,7 +87,7 @@ const AddTaskModal: React.FC<AddTaskModalProps> = ({ onClose, initialStatus = 'T
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder="e.g., Design the login page"
+              placeholder="e.g., Finalize the project proposal"
               autoFocus
             />
           </div>
@@ -92,7 +109,7 @@ const AddTaskModal: React.FC<AddTaskModalProps> = ({ onClose, initialStatus = 'T
               Cancel
             </button>
             <button type="submit" className="submit-btn" disabled={isSubmitting}>
-              {isSubmitting ? 'Adding...' : 'Add Task'}
+              {isSubmitting ? 'Saving...' : (isEditMode ? 'Save Changes' : 'Add Task')}
             </button>
           </div>
         </form>
