@@ -3,7 +3,7 @@
 Author: Wanda Azhar
 Location: Twin Falls, ID, USA
 Contact: wandaazhar@gmail.com
-Description: Represents a single column that accepts dropped task cards.
+Description: Represents a single column that passes edit and delete handlers to its TaskCards.
 */
 
 import React from 'react';
@@ -14,22 +14,23 @@ import type { Task, TaskStatus } from '../../types/types';
 import TaskCard from '../taskCard/TaskCard';
 import './column.scss';
 
-// The props interface is updated to accept the onDropTask function.
+// The interface is now updated to accept the edit and delete handlers.
 interface ColumnProps {
   status: TaskStatus;
   tasks: Task[];
   onDropTask: (taskId: string, newStatus: TaskStatus) => void;
+  onEditTask: (task: Task) => void;
+  onDeleteTask: (taskId: string) => void;
 }
 
-const Column: React.FC<ColumnProps> = ({ status, tasks, onDropTask }) => {
+const Column: React.FC<ColumnProps> = ({ status, tasks, onDropTask, onEditTask, onDeleteTask }) => {
   const [{ isOver }, drop] = useDrop(() => ({
     accept: 'TASK_CARD',
-    // The 'drop' function is now active. It calls onDropTask when a card is dropped.
     drop: (item: { id: string }) => onDropTask(item.id, status),
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
     }),
-  }), [status, onDropTask]); // Dependencies for the useDrop hook
+  }), [status, onDropTask]);
 
   const ref = React.useRef<HTMLDivElement>(null);
   drop(ref);
@@ -46,8 +47,14 @@ const Column: React.FC<ColumnProps> = ({ status, tasks, onDropTask }) => {
         </button>
       </div>
       <div className="task-list">
+        {/* The handlers are now passed down to each TaskCard */}
         {tasks.map(task => (
-          <TaskCard key={task.id} task={task} />
+          <TaskCard
+            key={task.id}
+            task={task}
+            onEdit={onEditTask}
+            onDelete={onDeleteTask}
+          />
         ))}
       </div>
       <button className="new-page-btn">

@@ -3,19 +3,17 @@
 Author: Wanda Azhar
 Location: Twin Falls, ID, USA
 Contact: wandaazhar@gmail.com
-Description: The main dashboard component that displays task columns and handles task management logic.
+Description: The main dashboard orchestrating all task management functionality.
 */
 
 import { useState, useEffect } from 'react';
-import { collection, onSnapshot, query, doc, updateDoc, orderBy } from 'firebase/firestore';
+import { collection, onSnapshot, query, doc, updateDoc, deleteDoc, orderBy } from 'firebase/firestore';
 import { db } from '../../utils/firebase';
 import type { Task, TaskStatus } from '../../types/types';
 
-// Import the real components, not local placeholders
 import Column from '../../components/column/Column';
 import AddTaskModal from '../../components/addTaskModal/AddTaskModal';
 
-// Import only the stylesheet for this component
 import './dashboard.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faPlus, faList, faTh, faSearch, faEllipsisH } from '@fortawesome/free-solid-svg-icons';
@@ -25,6 +23,7 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingTask, setEditingTask] = useState<Task | null>(null);
 
   const statuses: TaskStatus[] = ['To Do', 'Doing', 'Done'];
 
@@ -32,40 +31,49 @@ const Dashboard = () => {
     const tasksCollection = collection(db, 'tasks');
     const q = query(tasksCollection, orderBy('createdAt', 'asc'));
 
-    const unsubscribe = onSnapshot(q,
-      (snapshot) => {
-        const fetchedTasks = snapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        } as Task));
-        setTasks(fetchedTasks);
-        setLoading(false);
-      },
-      (err) => {
-        console.error("Error fetching tasks from Firestore: ", err);
-        setError("Failed to load tasks. Check your connection or Firebase configuration.");
-        setLoading(false);
-      }
-    );
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const fetchedTasks = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() } as Task));
+      setTasks(fetchedTasks);
+      setLoading(false);
+    }, (err) => {
+      console.error("Error fetching tasks: ", err);
+      setError("Failed to load tasks.");
+      setLoading(false);
+    });
 
     return () => unsubscribe();
   }, []);
+
+  const handleOpenModal = (task: Task | null = null) => {
+    setEditingTask(task);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setEditingTask(null);
+  };
+
+  // This function now deletes the task directly without a confirmation prompt.
+  const handleDeleteTask = async (taskId: string) => {
+    const taskRef = doc(db, 'tasks', taskId);
+    try {
+      await deleteDoc(taskRef);
+    } catch (err) {
+      console.error("Error deleting task: ", err);
+      // Optionally, you could set an error state here to notify the user.
+    }
+  };
 
   const handleDropTask = async (taskId: string, newStatus: TaskStatus) => {
     const taskToUpdate = tasks.find(task => task.id === taskId);
     if (taskToUpdate && taskToUpdate.status !== newStatus) {
       const taskRef = doc(db, 'tasks', taskId);
-      try {
-        await updateDoc(taskRef, { status: newStatus });
-      } catch (err) {
-        console.error("Error updating task status: ", err);
-      }
+      await updateDoc(taskRef, { status: newStatus });
     }
   };
 
-  const getTasksByStatus = (status: TaskStatus) => {
-    return tasks.filter(task => task.status === status);
-  };
+  const getTasksByStatus = (status: TaskStatus) => tasks.filter(task => task.status === status);
 
   return (
     <div className="dashboard">
@@ -88,7 +96,7 @@ const Dashboard = () => {
           <button className="icon-btn"><i className="fa-solid fa-bolt"></i></button>
           <button className="icon-btn"><FontAwesomeIcon icon={faSearch} /></button>
           <button className="icon-btn"><FontAwesomeIcon icon={faEllipsisH} /></button>
-          <button className="new-task-btn" onClick={() => setIsModalOpen(true)}>
+          <button className="new-task-btn" onClick={() => handleOpenModal()}>
             New <FontAwesomeIcon icon={faPlus} />
           </button>
         </div>
@@ -105,13 +113,15 @@ const Dashboard = () => {
                 status={status}
                 tasks={getTasksByStatus(status)}
                 onDropTask={handleDropTask}
+                onEditTask={handleOpenModal}
+                onDeleteTask={handleDeleteTask}
               />
             ))}
           </div>
         )}
       </div>
 
-      {isModalOpen && <AddTaskModal onClose={() => setIsModalOpen(false)} />}
+      {isModalOpen && <AddTaskModal onClose={handleCloseModal} taskToEdit={editingTask} />}
     </div>
   );
 }
