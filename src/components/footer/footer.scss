@@ -1,6 +1,45 @@
+// src/components/footer/footer.scss
 /*
 Author: Wanda Azhar
 Location: Twin Falls, ID. USA
 Contact: wandaazhar@gmail.com
-Description: A responsive task tracking application built with React, TypeScript, Sass, and Firebase. Manage your to-do, doing, and done tasks with a clean, board-style interface.
+Description: Styles for the Footer component.
 */
+
+@use '../../styles/variable' as v;
+
+.footer {
+  background-color: v.$colorBackgroundNavbar;
+  color: v.$grey-color;
+  padding: 2rem;
+  text-align: center;
+
+  &-container {
+    max-width: 130rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .footer-socials {
+    display: flex;
+    gap: 2rem;
+
+    .social-link {
+      color: v.$grey-color;
+      font-size: 2.4rem;
+      transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
+
+      &:hover {
+        color: #fff;
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  .footer-copyright {
+    font-size: 1.4rem;
+  }
+}
