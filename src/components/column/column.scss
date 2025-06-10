@@ -6,10 +6,127 @@ Contact: wandaazhar@gmail.com
 Description: Styles for the Column component.
 */
 
+// @use '../../styles/variable' as v;
+
+// .column {
+//   background-color: #F7F7F7; // A slightly different grey to distinguish from the dashboard bg
+//   border-radius: 0.8rem;
+//   padding: 1rem 1.5rem;
+//   display: flex;
+//   flex-direction: column;
+//   transition: background-color 0.2s ease-in-out;
+
+//   &.is-over {
+//     background-color: #E0E0E0; // Highlight when a task is dragged over
+//   }
+
+//   .column-header {
+//     display: flex;
+//     align-items: center;
+//     padding-bottom: 1rem;
+//     margin-bottom: 1rem;
+
+//     h3 {
+//       font-size: 1.4rem;
+//       font-weight: 600;
+//       text-transform: uppercase;
+//       letter-spacing: 0.5px;
+//       margin-right: 1rem;
+
+//       // Color coding based on status from the mockup
+//       &.To-Do {
+//         color: #555;
+//       }
+
+//       // Using a neutral dark grey for 'To Do'
+//       &.Doing {
+//         color: #F0AD4E;
+//       }
+
+//       // Yellow for 'Doing'
+//       &.Done {
+//         color: #5CB85C;
+//       }
+
+//       // Green for 'Done'
+//     }
+
+//     .task-count {
+//       font-size: 1.2rem;
+//       background-color: #E0E0E0;
+//       color: v.$textGrey;
+//       padding: 0.2rem 0.8rem;
+//       border-radius: 1rem;
+//       font-weight: 500;
+//     }
+
+//     .add-task-btn-small {
+//       margin-left: auto;
+//       background: transparent;
+//       border: none;
+//       font-size: 1.6rem;
+//       color: v.$textGrey;
+//       cursor: pointer;
+//       padding: 0.5rem;
+
+//       &:hover {
+//         color: v.$colorBackgroundDark;
+//       }
+//     }
+//   }
+
+//   .task-list {
+//     flex-grow: 1;
+//     min-height: 10rem; // Ensures the column has a minimum height to be a drop target
+//   }
+
+//   .new-page-btn {
+//     width: 100%;
+//     background-color: transparent;
+//     border: 1px dashed #D0D0D0;
+//     text-align: center;
+//     padding: 1rem;
+//     margin-top: 1rem;
+//     border-radius: 0.6rem;
+//     font-size: 1.4rem;
+//     color: v.$textGrey;
+//     cursor: pointer;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     gap: 0.8rem;
+//     transition: background-color 0.2s, color 0.2s;
+
+//     &:hover {
+//       background-color: #EAEAEA;
+//       color: v.$colorBackgroundDark;
+//     }
+//   }
+// }
+
+// // Placeholder styles for the TaskCard
+// .task-card-placeholder {
+//   background-color: white;
+//   border-radius: 0.6rem;
+//   padding: 1.2rem;
+//   margin-bottom: 1rem;
+//   box-shadow: v.$boxShadow;
+//   font-size: 1.4rem;
+//   cursor: grab;
+//   border: 1px solid #EAEAEA;
+
+//   &:hover {
+//     box-shadow: rgba(100, 100, 111, 0.25) 0px 2px 8px 0px;
+//   }
+// }
+
+// src/components/column/column.scss
+/* Styles for the Column component, now using theme variables */
+
 @use '../../styles/variable' as v;
 
 .column {
-  background-color: #F7F7F7; // A slightly different grey to distinguish from the dashboard bg
+  background-color: var(--background-secondary); // Themed
   border-radius: 0.8rem;
   padding: 1rem 1.5rem;
   display: flex;
@@ -17,7 +134,7 @@ Description: Styles for the Column component.
   transition: background-color 0.2s ease-in-out;
 
   &.is-over {
-    background-color: #E0E0E0; // Highlight when a task is dragged over
+    background-color: rgba(0, 0, 0, 0.1); // Use a semi-transparent overlay
   }
 
   .column-header {
@@ -25,36 +142,20 @@ Description: Styles for the Column component.
     align-items: center;
     padding-bottom: 1rem;
     margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color); // Themed
 
     h3 {
       font-size: 1.4rem;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      margin-right: 1rem;
-
-      // Color coding based on status from the mockup
-      &.To-Do {
-        color: #555;
-      }
-
-      // Using a neutral dark grey for 'To Do'
-      &.Doing {
-        color: #F0AD4E;
-      }
-
-      // Yellow for 'Doing'
-      &.Done {
-        color: #5CB85C;
-      }
-
-      // Green for 'Done'
+      color: var(--text-secondary); // Themed
     }
 
     .task-count {
       font-size: 1.2rem;
-      background-color: #E0E0E0;
-      color: v.$textGrey;
+      background-color: var(--background-primary); // Themed
+      color: var(--text-secondary); // Themed
       padding: 0.2rem 0.8rem;
       border-radius: 1rem;
       font-weight: 500;
@@ -65,31 +166,31 @@ Description: Styles for the Column component.
       background: transparent;
       border: none;
       font-size: 1.6rem;
-      color: v.$textGrey;
+      color: var(--text-secondary); // Themed
       cursor: pointer;
       padding: 0.5rem;
 
       &:hover {
-        color: v.$colorBackgroundDark;
+        color: var(--text-primary); // Themed
       }
     }
   }
 
   .task-list {
     flex-grow: 1;
-    min-height: 10rem; // Ensures the column has a minimum height to be a drop target
+    min-height: 10rem;
   }
 
   .new-page-btn {
     width: 100%;
     background-color: transparent;
-    border: 1px dashed #D0D0D0;
+    border: 1px dashed var(--border-color); // Themed
     text-align: center;
     padding: 1rem;
     margin-top: 1rem;
     border-radius: 0.6rem;
     font-size: 1.4rem;
-    color: v.$textGrey;
+    color: var(--text-secondary); // Themed
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -98,24 +199,8 @@ Description: Styles for the Column component.
     transition: background-color 0.2s, color 0.2s;
 
     &:hover {
-      background-color: #EAEAEA;
-      color: v.$colorBackgroundDark;
+      background-color: var(--background-primary); // Themed
+      color: var(--text-primary); // Themed
     }
-  }
-}
-
-// Placeholder styles for the TaskCard
-.task-card-placeholder {
-  background-color: white;
-  border-radius: 0.6rem;
-  padding: 1.2rem;
-  margin-bottom: 1rem;
-  box-shadow: v.$boxShadow;
-  font-size: 1.4rem;
-  cursor: grab;
-  border: 1px solid #EAEAEA;
-
-  &:hover {
-    box-shadow: rgba(100, 100, 111, 0.25) 0px 2px 8px 0px;
   }
 }

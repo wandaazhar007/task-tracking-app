@@ -1,46 +1,34 @@
-import Footer from './components//footer/Footer';
+// src/App.tsx
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { ThemeProvider } from './context/ThemeContext'; // Import the ThemeProvider
+
 import Navbar from './components/navbar/Navbar';
-import About from './pages/about/About';
+import Footer from './components/footer/Footer';
 import Dashboard from './pages/dashboard/Dashboard';
+import About from './pages/about/About';
 import './styles/globals.scss';
 
-import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
-
 function App() {
-
-  const Layout = () => {
-    return (
-      <div className="main">
-        <Navbar />
-        <div className="allContainer">
-          <div className="contentContainer">
-            <Outlet />
-          </div>
-        </div>
-        <Footer />
-      </div>
-    )
-  }
-
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Layout />,
-      children: [
-        {
-          path: "/",
-          element: <Dashboard />
-        },
-      ]
-    },
-    {
-      path: "/about",
-      element: <About />
-    }
-  ])
   return (
-    <RouterProvider router={router} />
-  )
-
+    <ThemeProvider>
+      <DndProvider backend={HTML5Backend}>
+        <Router>
+          <div className="app-container">
+            <Navbar />
+            <main>
+              <Routes>
+                <Route path="/" element={<Dashboard />} />
+                <Route path="/about" element={<About />} />
+              </Routes>
+            </main>
+            <Footer />
+          </div>
+        </Router>
+      </DndProvider>
+    </ThemeProvider>
+  );
 }
-export default App
+
+export default App;

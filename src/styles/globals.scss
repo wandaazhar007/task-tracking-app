@@ -5,34 +5,68 @@ Contact: wandaazhar@gmail.com
 Description: A responsive task tracking application built with React, TypeScript, Sass, and Firebase. Manage your to-do, doing, and done tasks with a clean, board-style interface.
 */
 
-// @import './responsive.scss';
-// @import './variable.scss';
-@use './responsive';
-@use './variable';
+/* src/styles/globals.scss */
 
+// Import your variables
+@use './variable' as v;
+@use './responsive' as r;
 
-html {
-  font-size: 62.5%;
+/*
+  Define color variables for both themes.
+  The 'data-theme' attribute on the body will control which set of variables is active.
+*/
+:root {
+  --background-primary: #FAFAFA;
+  --background-secondary: #F7F7F7;
+  --background-card: #FFFFFF;
+  --text-primary: #1A202C; // Dark grey for text
+  --text-secondary: #718096; // Lighter grey for secondary text
+  --border-color: #E0E0E0;
+  --shadow-color: rgba(100, 100, 111, 0.2);
+  --selection-bg: #{v.$colorBackgroundDark};
+  --selection-text: #{v.$colorBackgroundLight};
 }
 
+[data-theme='dark'] {
+  --background-primary: #1A202C;
+  --background-secondary: #2D3748;
+  --background-card: #4A5568;
+  --text-primary: #F7FAFC; // Light text for dark mode
+  --text-secondary: #A0AEC0; // Lighter grey for dark mode
+  --border-color: #4A5568;
+  --shadow-color: rgba(0, 0, 0, 0.4);
+  --selection-bg: #{v.$colorTeal};
+  --selection-text: #{v.$colorBackgroundDark};
+}
+
+// General body styles
+body {
+  font-family: 'Inter', sans-serif; // Global font style
+  background-color: var(--background-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s, color 0.3s;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Reset default styles
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+html {
+  font-size: 62.5%; // Sets the base font size to 10px for easy rem calculations (1rem = 10px)
+}
+
+// Your restored custom styles, now using theme variables
 *::selection {
-  background-color: variable.$colorBackgroundDark;
-  color: variable.$colorBackgroundLight;
+  background-color: var(--selection-bg);
+  color: var(--selection-text);
 }
 
 a {
   text-decoration: none;
-  columns: inherit;
-}
-
-.main {
-  font-family: "Inter", sans-serif;
-  background-color: variable.$colorBackgroundLight;
-
+  color: inherit;
 }
