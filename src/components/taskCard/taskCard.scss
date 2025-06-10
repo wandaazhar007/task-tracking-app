@@ -3,63 +3,58 @@
 Author: Wanda Azhar
 Location: Twin Falls, ID. USA
 Contact: wandaazhar@gmail.com
-Description: Styles for the TaskCard component.
+Description: Styles for the TaskCard component, now using theme variables.
 */
 @use '../../styles/variable' as v;
 
 .task-card {
-  background-color: white;
+  // Use theme variables for colors and shadows
+  background-color: var(--background-card);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 1px 3px var(--shadow-color);
+
   border-radius: 0.6rem;
   padding: 1.2rem;
   margin-bottom: 1rem;
-  box-shadow: v.$boxShadow;
   cursor: grab;
-  transition: box-shadow 0.2s, transform 0.2s;
-  border: 1px solid #EAEAEA;
-  position: relative; // Crucial for positioning the delete button
-  min-height: 4rem; // Ensures the card has a consistent minimum height
+  transition: box-shadow 0.2s, transform 0.2s, background-color 0.3s;
+  position: relative;
+  min-height: 4rem;
 
   .task-title {
     font-size: 1.4rem;
-    color: v.$colorBackgroundDark;
+    color: var(--text-primary); // Themed text color
     font-weight: 500;
-    // Add padding to the right to prevent text from rendering underneath the button
     padding-right: 2.5rem;
   }
 
   .delete-btn {
-    // Position the button in the top right corner of the card
     position: absolute;
-    top: 50%; // Start at the middle
-    transform: translateY(-50%); // Nudge it up to be perfectly centered
+    top: 50%;
+    transform: translateY(-50%);
     right: 0.5rem;
-
-    // Style the button itself
     background: transparent;
     border: none;
-    color: #cccccc; // A light grey, less distracting
+    color: var(--text-secondary); // Themed icon color
     font-size: 1.3rem;
     cursor: pointer;
     padding: 0.5rem;
     border-radius: 0.4rem;
-    line-height: 1; // Ensures the icon is vertically centered within the button
-
-    // Hide the button by default and show on card hover
+    line-height: 1;
     opacity: 0;
     transition: opacity 0.2s, color 0.2s;
 
     &:hover {
-      color: #D9534F; // A standard danger red on hover
+      color: #D9534F; // Keep a consistent "danger" color for delete
     }
   }
 
-  // Make the button visible when the user hovers over the card
   &:hover .delete-btn {
     opacity: 1;
   }
 
   &:hover {
-    box-shadow: rgba(100, 100, 111, 0.25) 0px 2px 8px 0px;
+    box-shadow: 0 2px 8px var(--shadow-color); // Themed hover shadow
     transform: translateY(-2px);
   }
 
