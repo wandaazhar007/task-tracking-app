@@ -323,10 +323,10 @@ Description: A responsive task tracking application built with React, TypeScript
         cursor: pointer;
         transition: background-color 0.2s, color 0.2s;
 
-        &.theme-toggle {
-          // color: #f6e05e;
-          // border-color: #f6e05e;
-        }
+        // &.theme-toggle {
+        //   color: #f6e05e;
+        //   border-color: #f6e05e;
+        // }
 
         &:hover {
           background-color: var(--background-secondary);
